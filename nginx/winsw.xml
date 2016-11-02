@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>  
+<id>Nginx</id>  
+<name>Nginx</name>  
+<description>用于支持Nginx随服务启动</description>  
+<executable>D:/soft/nginx-1.10.1/Nginx/nginx.exe</executable> 
+<logpath>D:/soft/nginx-1.10.1/Nginx/logs/</logpath> 
+<logmode>roll</logmode> 
+<depend></depend>  
+<startargument>-p D:/soft/nginx-1.10.1/Nginx</startargument>  
+<stopargument>-p D:/soft/nginx-1.10.1/Nginx -s stop</stopargument> 
+</service>
