@@ -13,17 +13,16 @@ var runid = 0;
 var awardlist = new Array();
 var goodnum = 0;
 
+var forbidden = new Array(); //take blacklist into here, like new Array(1,2,3,4);
+
 function getelbyid(id){
 	return document.getElementById(id);
 }
 
 function generateRandom(min, max, myexcludes) {
-	if(typeof(myexcludes) == 'undefined'){
-		console.log("got undefined...");
-		return false;
-	}
     var num = Math.floor(Math.random() * (max - min + 1)) + min;
-    return (myexcludes.indexOf(num) >= 0) ? generateRandom(min, max) : num;
+	console.log ("we got randnum:" + num);
+    return (myexcludes.indexOf(num) >= 0) ? generateRandom(min, max, myexcludes) : num;
 }
 
 function changeoutput(){
@@ -35,11 +34,9 @@ function changeoutput(){
 	for(var i=0;i<awardlist.length;i++){
 		excludesnum.push(parseInt(awardlist[i]));
 	}
-	result = generateRandom(parseInt(getelbyid("min").value), parseInt(getelbyid("max").value),excludesnum);
-	if(typeof(result) != 'boolean'){
-		getelbyid("output").innerHTML = result;
-		goodnum = result;
-	}
+	result = generateRandom(parseInt(getelbyid("min").value), parseInt(getelbyid("max").value), excludesnum);
+	getelbyid("output").innerHTML = result;
+	goodnum = result;
 }
 
 function start(){
@@ -49,7 +46,22 @@ function start(){
 function stop(){
 	clearInterval(runid);
 	awardlist.push(goodnum);
-	getelbyid('awardlist_out').innerHTML = awardlist.join("\n");
+	getelbyid('awardlist_out').innerHTML = awardlist.join("<br />");
+	runid = 0;
+}
+
+function take10(){
+	if(runid > 0){
+		console.log ("stop first...");
+		stop();
+	}
+	for(var i=0;i<1;i++){
+		changeoutput();
+		if(goodnum > 0){
+			awardlist.push(goodnum);
+		}
+		getelbyid('awardlist_out').innerHTML = awardlist.join("<br />");
+	}
 }
 </script>
 <form class="pure-form">
@@ -61,6 +73,7 @@ function stop(){
 		<p><label for="excludes">excludes</label> <input id="excludes" type="text" value="1,2,3"></p>
 		<button onclick="start();return false;" value="start" class="pure-button pure-button-primary">START!</button>
 		<button onclick="stop();return false;" value="stop" class="pure-button pure-button-primary">STOP!</button>
+		<button onclick="take10();return false;" value="take10" class="pure-button pure-button-primary">10 Scout!</button>
 		<p>awardlist: <span id="awardlist_out"></span></p>
 	</fieldset>
 </form>
