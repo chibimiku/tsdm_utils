@@ -7,27 +7,61 @@
 </head>
 <body>
 
-<script>
+<script type="text/javascript">
+
+var runid = 0;
+var awardlist = new Array();
+var goodnum = 0;
 
 function getelbyid(id){
 	return document.getElementById(id);
 }
 
-function generateRandom(min, max, excludes) {
+function generateRandom(min, max, myexcludes) {
+	if(typeof(myexcludes) == 'undefined'){
+		console.log("got undefined...");
+		return false;
+	}
     var num = Math.floor(Math.random() * (max - min + 1)) + min;
-	//var excludes = [8,15,20]
-    return (excludes.indexOf(num) >= 0) ? generateRandom(min, max) : num;
+    return (myexcludes.indexOf(num) >= 0) ? generateRandom(min, max) : num;
 }
 
 function changeoutput(){
-	getelbyid("output").innerHTML=generateRandom(getelbyid("min").value, getelbyid("max").value, getelbyid("excludes").split(","));
+	var seeks = getelbyid("excludes").value.split(",")
+	var excludesnum = new Array();
+	for(var i=0;i<seeks.length;i++){
+		excludesnum.push(parseInt(seeks[i]));
+	}
+	for(var i=0;i<awardlist.length;i++){
+		excludesnum.push(parseInt(awardlist[i]));
+	}
+	result = generateRandom(parseInt(getelbyid("min").value), parseInt(getelbyid("max").value),excludesnum);
+	if(typeof(result) != 'boolean'){
+		getelbyid("output").innerHTML = result;
+		goodnum = result;
+	}
+}
+
+function start(){
+	runid = setInterval('changeoutput()',50);
+}
+
+function stop(){
+	clearInterval(runid);
+	awardlist.push(goodnum);
+	getelbyid('awardlist_out').innerHTML = awardlist.join("\n");
 }
 </script>
+<form class="pure-form">
 <h2>award id:</h2>
-<p id="output">0</p>
-
-<p><label for="min">min</label> <input id="min" name="min" type="text" value="1" /> 
-<p><label for="max">max</label> <input id="max" name="max" type="text" value="40" /> 
-<p><label for="excludes">excludes</label> <input id="excludes" type="text" value="1,2,3"></p>
-<button onclick="stop()" value="stop" />
+	<fieldset>
+		<p id="output">0</p>
+		<p><label for="min">min</label> <input id="min" name="min" type="text" value="1" /> 
+		<p><label for="max">max</label> <input id="max" name="max" type="text" value="40" /> 
+		<p><label for="excludes">excludes</label> <input id="excludes" type="text" value="1,2,3"></p>
+		<button onclick="start();return false;" value="start" class="pure-button pure-button-primary">START!</button>
+		<button onclick="stop();return false;" value="stop" class="pure-button pure-button-primary">STOP!</button>
+		<p>awardlist: <span id="awardlist_out"></span></p>
+	</fieldset>
+</form>
 </body></html>
