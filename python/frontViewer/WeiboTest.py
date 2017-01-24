@@ -21,3 +21,17 @@ class WeiboTest:
         mybtn = self.driver.find_element_by_css_selector('.module-topbar .fr')
         mybtn.click()
         time.sleep(self.waitAfterBigOperation)
+        
+    def checkAtlist(self):
+        #switch from frontpage to at list.
+        self.driver.get('http://m.weibo.cn/msg/atme?subtype=allWB')
+        contentlist = self.driver.find_elements_by_class_name('default-content')
+        timelist = self.driver.find_elements_by_class_name('time')
+        if(not timelist.len == contentlist.len):
+            print ("not equal...")
+            return False
+        for i in range(0, contentlist):
+            if('@一键吃书井上葵' in contentlist[i]):
+                print ("we got a call at " + timelist[i])
+        
+        

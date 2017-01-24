@@ -41,8 +41,9 @@ class WindowsDriver:
         self.driver.get('http://m.weibo.cn/')
         #self.doFastSnap('mytest.png')
         weibo = WeiboTest.WeiboTest(self.driver)
-        weibo.openWriteNewStatus()
-        weibo.typeWeibo('@天使动漫谐星战术研究院 新的实验')
+        #weibo.openWriteNewStatus()
+        #weibo.typeWeibo('@天使动漫谐星战术研究院 新的实验')
+        weibo.checkAtlist()
         self.driver.quit()
         
     def plog(self, content, level = 1, logThreadID = -1):
