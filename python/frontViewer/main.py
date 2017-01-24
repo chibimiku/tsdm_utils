@@ -32,5 +32,5 @@ class WindowsDriver:
         self.driver.quit()
         
 if __name__=='__main__':
-    wwd = WindowsWebDriver()
-    wwd.runFetch()
+    mydriver = WindowsDriver()
+    mydriver.runFetch()
