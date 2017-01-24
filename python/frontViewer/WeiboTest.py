@@ -9,7 +9,7 @@ class WeiboTest:
         
     def openWriteNewStatus(self):
         mybtn = self.driver.find_element_by_class_name('iconf_navbar_compose')
-        translateBtn.click()
+        mybtn.click()
         time.sleep(self.waitAfterBigOperation)
         
     def typeWeibo(self, content):
