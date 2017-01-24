@@ -3,6 +3,8 @@
 
 import time,os,traceback,urllib.parse,sys
 
+import util
+
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException 
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -33,7 +35,7 @@ class WindowsDriver:
     def runFetch(self):
         #just for test.
         self.driver.get('http://www.baidu.com/')
-        
+        self.doFastSnap('mytest.png')
         self.driver.quit()
         
     def plog(self, content, level = 1, logThreadID = -1):
@@ -50,8 +52,9 @@ class WindowsDriver:
             print (outstr)
         except:
             return False
-        
     
+    def doFastSnap(self, filename):
+        util.fullpage_screenshot(self.driver, filename)
         
 if __name__=='__main__':
     mydriver = WindowsDriver()
