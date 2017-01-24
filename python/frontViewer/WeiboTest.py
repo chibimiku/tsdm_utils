@@ -27,11 +27,12 @@ class WeiboTest:
         self.driver.get('http://m.weibo.cn/msg/atme?subtype=allWB')
         contentlist = self.driver.find_elements_by_class_name('default-content')
         timelist = self.driver.find_elements_by_class_name('time')
-        if(not len(timelist) == len(contentlist)):
+        if (not len(timelist) == len(contentlist)):
             print ("not equal...")
             return False
-        for i in range(0, contentlist):
-            if('@一键吃书井上葵' in contentlist[i]):
-                print ("we got a call at " + timelist[i])
-        
-        
+        for i in range(0, len(contentlist)):
+            mycontent = contentlist[i].text
+            if('@一键吃书井上葵' in mycontent):
+                print ("we got a call at " + timelist[i].text + ", content is:" + mycontent)
+    
+    
