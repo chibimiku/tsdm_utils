@@ -33,6 +33,7 @@ class WindowsDriver:
     def runFetch(self):
         #just for test.
         self.driver.get('http://www.baidu.com/')
+        
         self.driver.quit()
         
     def plog(self, content, level = 1, logThreadID = -1):
@@ -49,6 +50,8 @@ class WindowsDriver:
             print (outstr)
         except:
             return False
+        
+    
         
 if __name__=='__main__':
     mydriver = WindowsDriver()
