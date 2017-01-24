@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import time
+import CoreHandler
 
 class WeiboTest:
     def __init__(self, webdriver):
         self.driver = webdriver
+        self.ch = CoreHandler.CoreHandler('一键吃书井上葵')
         self.waitAfterOperation = 2
         self.waitAfterBigOperation = 5
         
@@ -27,6 +29,7 @@ class WeiboTest:
         self.driver.get('http://m.weibo.cn/msg/atme?subtype=allWB')
         contentlist = self.driver.find_elements_by_class_name('default-content')
         timelist = self.driver.find_elements_by_class_name('time')
+        authorlist = self.driver.find_elements_by_css_selector('.item-list div a.item-main')
         if (not len(timelist) == len(contentlist)):
             print ("not equal...")
             return False
@@ -34,5 +37,9 @@ class WeiboTest:
             mycontent = contentlist[i].text
             if('@一键吃书井上葵' in mycontent):
                 print ("we got a call at " + timelist[i].text + ", content is:" + mycontent)
-    
+                aireturns = ch(mycontent)
+                if(len(aireturns) > 0):
+                    typeWeibo('reply @' + authorlist[i].text + ":" + aireturns)
+                    return True
+        return False
     
