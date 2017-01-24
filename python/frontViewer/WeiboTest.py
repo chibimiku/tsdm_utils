@@ -12,9 +12,7 @@ class WeiboTest:
         self.waitAfterBigOperation = 5
         
     def openWriteNewStatus(self):
-        mybtn = self.driver.find_element_by_class_name('iconf_navbar_compose')
-        mybtn.click()
-        time.sleep(self.waitAfterBigOperation)
+        self.driver.get('http://m.weibo.cn/mblog')
         
     def typeWeibo(self, content):
         el = self.driver.find_element_by_id('txt-publisher')
@@ -35,11 +33,14 @@ class WeiboTest:
             return False
         for i in range(0, len(contentlist)):
             mycontent = contentlist[i].text
+            author = authorlist[i].text
+            timetxt = timelist[i].text
             if('@一键吃书井上葵' in mycontent):
-                print ("we got a call at " + timelist[i].text + ", content is:" + mycontent)
-                aireturns = ch(mycontent)
+                print ("we got a call at " + timetxt + ", content is:" + mycontent)
+                aireturns = self.ch.procCall(mycontent)
                 if(len(aireturns) > 0):
-                    typeWeibo('reply @' + authorlist[i].text + ":" + aireturns)
+                    self.openWriteNewStatus()
+                    self.typeWeibo('reply @' + author + ":" + aireturns)
                     return True
         return False
     

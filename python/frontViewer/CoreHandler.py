@@ -12,7 +12,7 @@ class CoreHandler():
         #fetch commands
         commandList = {"测试": 'test', '讲个笑话': 'joke'}
         for k,v in commandList.items():
-            if '/' + key in content:
+            if '/' + k in content:
                 return eval('self._command_' + v + "()")
     
     def _command_test(self):
