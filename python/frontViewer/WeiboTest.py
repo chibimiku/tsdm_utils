@@ -15,7 +15,7 @@ class WeiboTest:
         time.sleep(self.waitAfterBigOperation)
         
     def typeWeibo(self, content):
-        el = self.driver.find_element_by_id('form_textarea')
+        el = self.driver.find_element_by_id('txt-publisher')
         #el.send_keys(Keys.CONTROL, 'v') #Parse.
         el.send_keys(content)
         mybtn = self.driver.find_element_by_class_name('fr txt-link')
