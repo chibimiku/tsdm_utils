@@ -17,6 +17,8 @@ class WindowsDriver:
     def __init__(self):
     
         self.loadpageTimeout=5000
+        self.waitAfterOperation=1.5 #操作后等1秒
+        self.waitAfterBigOperation=5 #比较耗时的操作后等5秒
     
         chromedriverPath='lib/chromedriver.exe'
         os.environ["webdriver.chrome.driver"] = chromedriverPath
