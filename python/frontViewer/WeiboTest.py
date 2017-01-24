@@ -27,7 +27,7 @@ class WeiboTest:
         self.driver.get('http://m.weibo.cn/msg/atme?subtype=allWB')
         contentlist = self.driver.find_elements_by_class_name('default-content')
         timelist = self.driver.find_elements_by_class_name('time')
-        authorlist = self.driver.find_elements_by_css_selector('.item-list div a.item-main')
+        authorlist = self.driver.find_elements_by_css_selector('a.item-main')
         if (not len(timelist) == len(contentlist)):
             print ("not equal...")
             return False
@@ -36,7 +36,7 @@ class WeiboTest:
             author = authorlist[i].text
             timetxt = timelist[i].text
             if('@一键吃书井上葵' in mycontent):
-                print ("we got a call at " + timetxt + ", content is:" + mycontent)
+                print ("we got a call at " + timetxt + ", author is: " + author + ", content is:" + mycontent)
                 aireturns = self.ch.procCall(mycontent)
                 if(len(aireturns) > 0):
                     self.openWriteNewStatus()
