@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+import time
+
 class WeiboTest:
     def __init__(self, webdriver):
         self.driver = webdriver
