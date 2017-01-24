@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import time,os,traceback,urllib.parse
+import time,os,traceback,urllib.parse,sys
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException 
@@ -34,6 +34,21 @@ class WindowsDriver:
         #just for test.
         self.driver.get('http://www.baidu.com/')
         self.driver.quit()
+        
+    def plog(self, content, level = 1, logThreadID = -1):
+        try:
+            content = str(content)
+            levelDict = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+            if(level > 4 or level < 0):
+                level = 1 #set level to INFO if illegal.
+            currtime = time.strftime('%Y%m%d %H:%M:%S', time.localtime(time.time()))
+            threadString = ""
+            if(logThreadID >= 0):
+                threadString = "[ThreadID:" + str(logThreadID) + "]"
+            outstr = "[" + levelDict[level] + "] " + threadString + "[" + str(currtime) + "] " + content
+            print (outstr)
+        except:
+            return False
         
 if __name__=='__main__':
     mydriver = WindowsDriver()
