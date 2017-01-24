@@ -4,7 +4,7 @@
 import time,os,traceback,urllib.parse,sys
 
 import util
-import weiboTest
+import WeiboTest
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException 
