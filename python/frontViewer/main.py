@@ -4,6 +4,7 @@
 import time,os,traceback,urllib.parse,sys
 
 import util
+import weiboTest
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException 
@@ -25,7 +26,10 @@ class WindowsDriver:
         mobileua = 'Mozilla/5.0 (Linux; U; Android 6.0.1; zh-tw; E5823 Build/32.2.A.0.305) AppleWebKit/537.36 (KHTML, like Gecko)Version/4.0 Chrome/37.0.0.0 MQQBrowser/7.2 Mobile Safari/537.36';
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument("--user-agent=" + mobileua)
-    
+        
+        userProfile = 'C:/Users/Administrator/AppData/Local/Google/Chrome/User Data'#as default.
+        chrome_options.add_argument("user-data-dir=" + userProfile)
+        
         chromedriverPath='lib/chromedriver.exe'
         os.environ["webdriver.chrome.driver"] = chromedriverPath
         self.driver = webdriver.Chrome(chromedriverPath, chrome_options=chrome_options)
@@ -34,8 +38,11 @@ class WindowsDriver:
     
     def runFetch(self):
         #just for test.
-        self.driver.get('http://www.baidu.com/')
-        self.doFastSnap('mytest.png')
+        self.driver.get('http://m.weibo.cn/')
+        #self.doFastSnap('mytest.png')
+        weibo = WeiboTest.WeiboTest(self.driver)
+        weibo.openWriteNewStatus()
+        weibo.typeWeibo('@天使动漫谐星战术研究院 新的实验')
         self.driver.quit()
         
     def plog(self, content, level = 1, logThreadID = -1):
