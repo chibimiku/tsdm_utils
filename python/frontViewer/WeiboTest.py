@@ -27,7 +27,7 @@ class WeiboTest:
         self.driver.get('http://m.weibo.cn/msg/atme?subtype=allWB')
         contentlist = self.driver.find_elements_by_class_name('default-content')
         timelist = self.driver.find_elements_by_class_name('time')
-        if(not timelist.len == contentlist.len):
+        if(not len(timelist) == len(contentlist)):
             print ("not equal...")
             return False
         for i in range(0, contentlist):
