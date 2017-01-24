@@ -18,6 +18,6 @@ class WeiboTest:
         el = self.driver.find_element_by_id('txt-publisher')
         #el.send_keys(Keys.CONTROL, 'v') #Parse.
         el.send_keys(content)
-        mybtn = self.driver.find_element_by_class_name('fr txt-link')
+        mybtn = self.driver.find_element_by_css_selector('.module-topbar .fr')
         mybtn.click()
-        
+        time.sleep(self.waitAfterBigOperation)
